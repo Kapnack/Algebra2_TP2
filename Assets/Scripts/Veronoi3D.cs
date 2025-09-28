@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Voronoi3D : MonoBehaviour
-{ 
+{
     public Transform[] nodeTransforms;
+    
+    private Dictionary<int, List<Plane3>> _nodePlanes = new();
 
     public static Vec3 ToVec3(Vector3 v) => new(v.x, v.y, v.z);
-    
+
     private Vec3[] GetNodePositions()
     {
         if (nodeTransforms == null)
@@ -21,64 +23,44 @@ public class Voronoi3D : MonoBehaviour
 
         return arr;
     }
-
-    private List<Plane3> GetBisectorPlanesForNode(int index)
+    
+    [ContextMenu("Create Planes")]
+    public void BuildAllNodePlanes()
     {
-        List<Plane3> planes = new();
+        _nodePlanes.Clear();
         var nodes = GetNodePositions();
-        
-        if (index < 0 || index >= nodes.Length) 
-            return planes;
-        
-        Vec3 a = nodes[index];
-        
+
         for (int i = 0; i < nodes.Length; i++)
         {
-            if (i == index) 
-                continue;
-            
-            Plane3 bis = Plane3.BisectorPlane(a, nodes[i]);
-            planes.Add(bis);
-        }
-        return planes;
-    }
+            List<Plane3> planes = new();
+            for (int j = 0; j < nodes.Length; j++)
+            {
+                if (i == j)
+                    continue;
 
+                Plane3 bis = Plane3.BisectorPlane(nodes[i], nodes[j]);
+                planes.Add(bis);
+            }
+            _nodePlanes[i] = planes;
+        }
+    }
+    
     public bool IsPointInsideCell(int index, Vec3 point)
     {
-        var planes = GetBisectorPlanesForNode(index);
-        foreach (var plane in planes)
+        if (!_nodePlanes.ContainsKey(index))
+            return false;
+
+        foreach (var plane in _nodePlanes[index])
         {
             if (plane.IsPositiveSide(point))
                 return false;
         }
-        
+
         return true;
     }
 
-    
-    public int GetNearestNodeIndex(Vec3 point, out float distance)
+    private void Start()
     {
-        var nodes = GetNodePositions();
-        if (nodes.Length == 0)
-        {
-            distance = float.PositiveInfinity;
-            return -1;
-        }
-
-        int best = 0;
-        float bestSqr = Vec3.SqrMagnitude(nodes[0] - point);
-
-        for (int i = 1; i < nodes.Length; i++)
-        {
-            float sq = Vec3.SqrMagnitude(nodes[i] - point);
-            if (sq < bestSqr)
-            {
-                bestSqr = sq;
-                best = i;
-            }
-        }
-
-        distance = Mathf.Sqrt(bestSqr);
-        return best;
+        BuildAllNodePlanes();
     }
 }

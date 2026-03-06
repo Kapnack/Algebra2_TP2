@@ -14,7 +14,7 @@ public class MovableVoronoiTracker : MonoBehaviour
         if (!voronoi)
             return;
 
-        Vec3 pos = Voronoi3D.ToVec3(transform.position);
+        Vec3 pos = Vec3.ToVec3(transform.position);
 
         for (int i = 0; i < voronoi.nodeTransforms.Length; i++)
         {
@@ -34,21 +34,19 @@ public class MovableVoronoiTracker : MonoBehaviour
         if (voronoi == null || voronoi.nodeTransforms == null)
             return;
 
-        Vec3 p = Voronoi3D.ToVec3(transform.position);
+        Vec3 p = Vec3.ToVec3(transform.position);
 
         if (nearest < 0 || nearest >= voronoi.nodeTransforms.Length)
             return;
 
-        Vec3 nodePos = Voronoi3D.ToVec3(voronoi.nodeTransforms[nearest].position);
-
-        float distSqr = (nodePos - p).sqrMagnitude;
+        Vec3 nodePos = Vec3.ToVec3(voronoi.nodeTransforms[nearest].position);
 
         Gizmos.color = lineColor;
         Gizmos.DrawLine(p, voronoi.nodeTransforms[nearest].position);
         Gizmos.DrawSphere(voronoi.nodeTransforms[nearest].position, 0.06f);
 
 #if UNITY_EDITOR
-        UnityEditor.Handles.Label(p + Vec3.Up, $"Index: {nearest}. Distance: {MathF.Sqrt(distSqr)}");
+        UnityEditor.Handles.Label(p + Vec3.Up, $"Index: {nearest}. Distance: {MathF.Sqrt((nodePos - p).magnitude)}");
 #endif
     }
 }

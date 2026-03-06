@@ -11,6 +11,11 @@ public class PointsGenerator : MonoBehaviour
 
     private List<Transform> _generatedPoints = new();
 
+    private void Start()
+    {
+        GeneratePoints();
+    }
+
     [ContextMenu("Generate Points")]
     public void GeneratePoints()
     {
@@ -64,7 +69,6 @@ public class PointsGenerator : MonoBehaviour
         }
     }
 
-    [ContextMenu("Clear Points")]
     private void ClearGeneratedPoints()
     {
         foreach (var t in _generatedPoints)

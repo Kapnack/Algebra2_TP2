@@ -416,7 +416,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeTransforms: []
-  _nodes: []
 --- !u!114 &437542275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb4e5935a6e42319f89c3a451291326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointsAmount: 10
+  _pointsAmount: 20
   _min: {x: -34.74, y: 21.11, z: -10}
   _max: {x: 10, y: -10, z: 10}
   _pointPrefab: {fileID: 792039434906901644, guid: dacd8414129c1514ca99f4be5d5f3a78, type: 3}

@@ -23,6 +23,7 @@ public class MovableVoronoiTracker : MonoBehaviour
                 Debug.Log($"[{GetType()}] El objeto está dentro de la celda del nodo {i}");
 
                 nearest = i;
+
                 break;
             }
         }
@@ -35,6 +36,20 @@ public class MovableVoronoiTracker : MonoBehaviour
             return;
 
         Vec3 p = Vec3.ToVec3(transform.position);
+
+        Vec3 nearstVec3 = voronoi._nodes[0];
+
+        foreach (Vec3 voronoi in voronoi._nodes)
+        {
+            if (Vec3.Distance(nearstVec3, p) > Vec3.Distance(voronoi, p))
+                nearstVec3 = voronoi;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(p, voronoi);
+        }
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(p, nearstVec3);
 
         if (nearest < 0 || nearest >= voronoi.nodeTransforms.Length)
             return;

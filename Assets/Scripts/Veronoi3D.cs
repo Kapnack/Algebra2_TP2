@@ -6,7 +6,7 @@ public class Voronoi3D : MonoBehaviour
 {
     public Transform[] nodeTransforms;
 
-    private Vec3[] _nodes;
+    public Vec3[] _nodes;
 
     public List<VoronoiPlane> _planes = new();
     private Dictionary<int, List<int>> _nodePlanes = new();
@@ -80,16 +80,16 @@ public class Voronoi3D : MonoBehaviour
         Vec3 b = _nodes[j];
 
         Vec3 center = (a + b) * 0.5f;
-        float radiusSq = Vec3.SqrMagnitude(a - center);
+        float radiusSq = Vec3.Distance(a, center);
 
         for (int k = 0; k < _nodes.Length; k++)
         {
             if (k == i || k == j)
                 continue;
 
-            float distSq = Vec3.SqrMagnitude(_nodes[k] - center);
+            float distSq = Vec3.Distance(_nodes[k], center);
 
-            if (distSq < radiusSq)
+            if (distSq < radiusSq || Mathf.Approximately(distSq, radiusSq))
                 return false;
         }
 
@@ -109,12 +109,12 @@ public class Voronoi3D : MonoBehaviour
 
             if (nodeIndex == vp.a)
             {
-                if (dist > 0f)
+                if (dist > float.Epsilon || Mathf.Approximately(dist, float.Epsilon))
                     return false;
             }
             else
             {
-                if (dist < 0f)
+                if (dist < float.Epsilon || Mathf.Approximately(dist, float.Epsilon))
                     return false;
             }
         }

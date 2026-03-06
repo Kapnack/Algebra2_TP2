@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PointsGenerator : MonoBehaviour
 {
+    private static System.Random rng = new System.Random();
+
     [SerializeField] private int _pointsAmount = 10;
     [SerializeField] private Vector3 _min = new(-10, 0, -10);
     [SerializeField] private Vector3 _max = new(10, 0, 10);
@@ -39,10 +41,9 @@ public class PointsGenerator : MonoBehaviour
             {
                 do
                 {
-                    pos = new Vector3(
-                        Random.Range(_min.x, _max.x),
-                        Random.Range(_min.y, _max.y),
-                        Random.Range(_min.z, _max.z)
+                    pos = new Vector3(rng.Next(0, 56),
+                        rng.Next(0, 56),
+                        rng.Next(0, 56)
                     );
 
                     if (!points.Contains(pos))

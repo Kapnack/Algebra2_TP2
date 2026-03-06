@@ -20,8 +20,6 @@ public struct Plane3
         d = Vec3.Dot(this.normal, pointOnPlane);
     }
 
-    public bool IsPositiveSide(Vec3 p) => SignedDistance(p) > 0f;
-
     public float SignedDistance(Vec3 p) => Vec3.Dot(normal, p) - d;
 
 }

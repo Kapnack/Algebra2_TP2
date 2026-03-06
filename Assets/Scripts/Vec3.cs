@@ -162,6 +162,7 @@ public struct Vec3 : IEquatable<Vec3>
 
     #region Functions
 
+    public static Vec3 ToVec3(Vector3 v) => new(v.x, v.y, v.z);
     public override string ToString()
     {
         return $"X = {x}.  Y = {y}.  Z = {z}.";

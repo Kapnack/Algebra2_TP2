@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Voronoi3D : MonoBehaviour
 {
-    public Transform[] nodeTransforms;
+    public Transform[] nodeTransforms = {null};
     
     private Dictionary<int, List<Plane3>> _nodePlanes = new();
-
-    public static Vec3 ToVec3(Vector3 v) => new(v.x, v.y, v.z);
 
     private Vec3[] GetNodePositions()
     {
@@ -19,7 +17,7 @@ public class Voronoi3D : MonoBehaviour
 
         for (int i = 0; i < nodeTransforms.Length; i++)
             if (nodeTransforms[i])
-                arr[i] = ToVec3(nodeTransforms[i].position);
+                arr[i] = Vec3.ToVec3(nodeTransforms[i].position);
 
         return arr;
     }
@@ -57,10 +55,5 @@ public class Voronoi3D : MonoBehaviour
         }
 
         return true;
-    }
-
-    private void Start()
-    {
-        BuildAllNodePlanes();
     }
 }

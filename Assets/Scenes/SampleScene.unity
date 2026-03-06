@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 437542275}
   - component: {fileID: 437542278}
   - component: {fileID: 437542277}
+  - component: {fileID: 437542279}
   m_Layer: 0
   m_Name: VoronoiTracker
   m_TagString: Untagged
@@ -3493,6 +3494,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &437542279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437542273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ad2c208c2ce614180cbfd59c4b47b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voronoi: {fileID: 437542274}
+  drawAllPlanes: 0
+  nodeIndex: 0
+  planeSize: 2
+  normalLength: 1
+  planeColor: {r: 0, g: 1, b: 1, a: 0.25}
+  normalColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &572269833
 GameObject:
   m_ObjectHideFlags: 0

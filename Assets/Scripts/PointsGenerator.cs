@@ -65,13 +65,13 @@ public class PointsGenerator : MonoBehaviour
         if (_voronoi)
         {
             _voronoi.nodeTransforms = _generatedPoints.ToArray();
-            _voronoi.BuildAllNodePlanes();
+            _voronoi.BuildVoronoi();
         }
     }
 
     private void ClearGeneratedPoints()
     {
-        foreach (var t in _generatedPoints)
+        foreach (Transform t in _generatedPoints)
         {
             if (t)
             {

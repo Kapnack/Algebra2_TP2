@@ -18,8 +18,8 @@ public struct Vec3 : IEquatable<Vec3>
         {
             float mag = magnitude;
 
-            if (magnitude > epsilon)
-                return new Vec3(x / mag, y / mag, z / mag);
+            if (mag > epsilon)
+                return new Vec3(this / mag);
 
             return new Vec3(0.0f, 0.0f, 0.0f);
         }
@@ -101,6 +101,7 @@ public struct Vec3 : IEquatable<Vec3>
     #endregion
 
     #region Operators
+
 
     public static bool operator ==(Vec3 left, Vec3 right)
     {
